@@ -9,6 +9,10 @@
   "author": "Colin Orr",
   "license": "MIT",
   "dependencies": {
-    "node-fetch": "^2.2.0"
+    "koa": "^2.5.2",
+    "koa-json": "^2.0.2",
+    "koa-router": "^7.4.0",
+    "node-fetch": "^2.2.0",
+    "nodemon": "^1.18.3"
   }
 }

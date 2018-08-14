@@ -1,7 +1,10 @@
 version: '2'
 services:
-  dev:
+  web:
     image: node
     working_dir: /code
+    command: npx nodemon
     volumes:
       - .:/code
+    ports:
+      - 3000:3000
