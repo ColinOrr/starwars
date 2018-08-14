@@ -7,6 +7,7 @@ const url = 'https://cdn.rawgit.com/phalt/swapi/d9579f2f/resources/fixtures/peop
 class Person {
   constructor(values) {
 
+    this.id         = null;
     this.name       = null;
     this.created    = null;
     this.gender     = null;
@@ -22,17 +23,6 @@ class Person {
   }
 }
 
-class PersonSummary {
-  constructor(values) {
-
-    this.name       = null;
-    this.gender     = null;
-    this.birth_year = null;
-
-    map(values, this);
-  }
-}
-
 class People extends Array {
   constructor(people) {
     super();
@@ -41,19 +31,23 @@ class People extends Array {
     }
   }
 
+  find(id) {
+    return this.filter(x => x.id == id)[0];
+  }
+
   withName(name) {
     if (!name) return this;
     return this.filter(x => wildcard(x.name, name));
   }
 
-  toSummary() {
-    return this.map(x => new PersonSummary(x));
-  }
-
   static async load() {
     const response = await fetch(url);
     const data     = await response.json();
-    const people   = data.map(d => new Person(d.fields));
+
+    const people   = data.map(d => {
+      d.fields.id = d.pk;
+      return new Person(d.fields)
+    });
 
     console.log(`${people.length} people loaded`);
     return new People(people);
