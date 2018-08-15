@@ -1,27 +1,8 @@
-const fetch    = require('node-fetch');
-const map      = require('../utilities/map');
+const Person   = require('./person');
+const retrieve = require('../utilities/retrieve');
 const wildcard = require('../utilities/wildcard');
 
 const url = 'https://cdn.rawgit.com/phalt/swapi/d9579f2f/resources/fixtures/people.json';
-
-class Person {
-  constructor(values) {
-
-    this.id         = null;
-    this.name       = null;
-    this.created    = null;
-    this.gender     = null;
-    this.skin_color = null;
-    this.hair_color = null;
-    this.height     = null;
-    this.eye_color  = null;
-    this.mass       = null;
-    this.homeworld  = null;
-    this.birth_year = null;
-
-    map(values, this);
-  }
-}
 
 class People extends Array {
   constructor(people) {
@@ -35,20 +16,22 @@ class People extends Array {
     return this.filter(x => x.id == id)[0];
   }
 
+  query(filters) {
+    return this
+      .withName(filters.name);
+  }
+
   withName(name) {
     if (!name) return this;
     return this.filter(x => wildcard(x.name, name));
   }
 
+  summarize(extras = () => {}) {
+    return this.map(x => x.summarize(extras(x)));
+  }
+
   static async load() {
-    const response = await fetch(url);
-    const data     = await response.json();
-
-    const people   = data.map(d => {
-      d.fields.id = d.pk;
-      return new Person(d.fields)
-    });
-
+    const people = await retrieve(Person, url);
     console.log(`${people.length} people loaded`);
     return new People(people);
   }
