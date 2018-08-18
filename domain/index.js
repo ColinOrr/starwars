@@ -1,12 +1,17 @@
-const People = require('./people');
+const PersonArray  = require('./personArray');
+const SpeciesArray = require('./speciesArray');
 
 class Domain {
   constructor() {
-    this.people = new People();
+    this.people  = new PersonArray();
+    this.species = new SpeciesArray();
   }
 
   async load() {
-    this.people = await People.load();
+    [this.people, this.species] = await Promise.all([
+      PersonArray.load(),
+      SpeciesArray.load(),
+    ]);
   }
 }
 

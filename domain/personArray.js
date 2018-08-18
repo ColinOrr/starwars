@@ -4,16 +4,20 @@ const wildcard = require('../utilities/wildcard');
 
 const url = 'https://cdn.rawgit.com/phalt/swapi/d9579f2f/resources/fixtures/people.json';
 
-class People extends Array {
+class PersonArray extends Array {
   constructor(people) {
     super();
     if (people && people.forEach) {
-      people.forEach(p => this.push(p));
+      people.forEach(x => this.push(x));
     }
   }
 
   find(id) {
     return this.filter(x => x.id == id)[0];
+  }
+
+  summarize(extras = () => {}) {
+    return this.map(x => x.summarize(extras(x)));
   }
 
   query(filters) {
@@ -26,15 +30,11 @@ class People extends Array {
     return this.filter(x => wildcard(x.name, name));
   }
 
-  summarize(extras = () => {}) {
-    return this.map(x => x.summarize(extras(x)));
-  }
-
   static async load() {
     const people = await retrieve(Person, url);
     console.log(`${people.length} people loaded`);
-    return new People(people);
+    return new PersonArray(people);
   }
 }
 
-module.exports = People;
+module.exports = PersonArray;
