@@ -1,5 +1,7 @@
 const map = require('../utilities/map');
 
+const _species = Symbol('species');
+
 class Person {
   constructor(values) {
 
@@ -16,6 +18,16 @@ class Person {
     this.birth_year = null;
 
     map(values, this);
+
+    this[_species] = null;
+  }
+
+  get species() {
+    return this[_species];
+  }
+
+  set species(value) {
+    this[_species] = value;
   }
 
   summarize(extras) {

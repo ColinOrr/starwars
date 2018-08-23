@@ -12,6 +12,8 @@ class Domain {
       PersonArray.load(),
       SpeciesArray.load(),
     ]);
+
+    this.species.forEach(x => x.link(this));
   }
 }
 

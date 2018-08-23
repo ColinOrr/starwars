@@ -15,6 +15,16 @@ function species(router) {
     if (!ctx.body) ctx.status = 404;
   });
 
+  router.get('species-people', '/species/:id/people', ctx => {
+    const species = domain.species.find(ctx.params.id);
+    if (!species) ctx.status = 404;
+    else {
+      ctx.body = species
+        .people
+        .summarize(x => ({ url: link(router, ctx, 'person', x.id) }));
+    }
+  });
+
 }
 
 module.exports = species;

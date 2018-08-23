@@ -1,4 +1,7 @@
-const map = require('../utilities/map');
+const map         = require('../utilities/map');
+const PersonArray = require('./personArray');
+
+const _people = Symbol('people');
 
 class Species {
   constructor(values) {
@@ -17,6 +20,12 @@ class Species {
     this.average_height   = null;
 
     map(values, this);
+
+    this[_people] = new PersonArray(values.people);
+  }
+
+  get people() {
+    return this[_people];
   }
 
   summarize(extras) {
@@ -27,6 +36,14 @@ class Species {
     };
 
     return Object.assign(summary, extras);
+  }
+
+  link({ people }) {
+    this[_people] = this[_people].map(id => {
+      const person = people.find(id);
+      if (person) person.species = this;
+      return person || id;
+    });
   }
 }
 

@@ -15,6 +15,11 @@ function people(router) {
     if (!ctx.body) ctx.status = 404;
   });
 
+  router.get('person-species', '/people/:id/species', ctx => {
+    const person = domain.people.find(ctx.params.id) || {};
+    ctx.body = person.species;
+    if (!ctx.body) ctx.status = 404;
+  });
 };
 
 module.exports = people;
