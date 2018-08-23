@@ -20,6 +20,12 @@ function people(router) {
     ctx.body = person.species;
     if (!ctx.body) ctx.status = 404;
   });
+
+  router.get('person-homeworld', '/people/:id/homeworld', ctx => {
+    const person = domain.people.find(ctx.params.id) || {};
+    ctx.body = person.homeworld;
+    if (!ctx.body) ctx.status = 404;
+  });
 };
 
 module.exports = people;

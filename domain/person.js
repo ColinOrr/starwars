@@ -1,6 +1,7 @@
 const map = require('../utilities/map');
 
-const _species = Symbol('species');
+const _species   = Symbol('species');
+const _homeworld = Symbol('homeworld');
 
 class Person {
   constructor(values) {
@@ -19,7 +20,8 @@ class Person {
 
     map(values, this);
 
-    this[_species] = null;
+    this[_species]   = null;
+    this[_homeworld] = values.homeworld;
   }
 
   get species() {
@@ -30,6 +32,14 @@ class Person {
     this[_species] = value;
   }
 
+  get homeworld() {
+    return this[_homeworld];
+  }
+
+  set homeworld(value) {
+    this[_homeworld] = value;
+  }
+
   summarize(extras) {
     const summary = {
       name       : this.name,
@@ -38,6 +48,11 @@ class Person {
     };
 
     return Object.assign(summary, extras);
+  }
+
+  link({ planets }) {
+    this.homeworld = planets.find(this.homeworld);
+    if (this.homeworld) this.homeworld.people.push(this);
   }
 }
 
