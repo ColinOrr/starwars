@@ -1,5 +1,5 @@
-const map         = require('../utilities/map');
-const PersonArray = require('./personArray');
+const PersonRepository = require('./personRepository');
+const map              = require('../utilities/map');
 
 const _people = Symbol('people');
 
@@ -20,7 +20,7 @@ class Planet {
 
     map(values, this);
 
-    this[_people] = new PersonArray();
+    this[_people] = new PersonRepository();
   }
 
   get people() {

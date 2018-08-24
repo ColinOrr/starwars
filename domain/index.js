@@ -1,20 +1,24 @@
-const PersonArray  = require('./personArray');
-const SpeciesArray = require('./speciesArray');
-const PlanetArray  = require('./planetArray');
+const PersonRepository  = require('./personRepository');
+const SpeciesRepository = require('./speciesRepository');
+const PlanetRepository  = require('./planetRepository');
 
 class Domain {
   constructor() {
-    this.people  = new PersonArray();
-    this.species = new SpeciesArray();
-    this.planets = new PlanetArray();
+    this.people  = new PersonRepository();
+    this.species = new SpeciesRepository();
+    this.planets = new PlanetRepository();
   }
 
   async load() {
-    [this.people, this.species, this.planets] = await Promise.all([
-      PersonArray.load(),
-      SpeciesArray.load(),
-      PlanetArray.load(),
+    const data = await Promise.all([
+      PersonRepository.load(),
+      SpeciesRepository.load(),
+      PlanetRepository.load(),
     ]);
+
+    this.people  = data[0];
+    this.species = data[1];
+    this.planets = data[2];
 
     this.people.forEach(x => x.link(this));
     this.species.forEach(x => x.link(this));
