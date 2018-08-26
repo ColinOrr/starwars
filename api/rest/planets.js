@@ -1,5 +1,6 @@
-const domain = require('../../domain');
-const link   = require('../../utilities/link');
+const PersonRepository = require('../../domain/personRepository');
+const domain           = require('../../domain');
+const link             = require('../../utilities/link');
 
 function planets(router) {
 
@@ -19,8 +20,8 @@ function planets(router) {
     const planet = domain.planets.find(ctx.params.id);
     if (!planet) ctx.status = 404;
     else {
-      ctx.body = planet
-        .people
+      ctx.body =
+        new PersonRepository(planet.people)
         .summarize(x => ({ url: link(router, ctx, 'person', x.id) }));
     }
   });

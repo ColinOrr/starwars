@@ -1,5 +1,6 @@
-const domain = require('../../domain');
-const link   = require('../../utilities/link');
+const PersonRepository = require('../../domain/personRepository');
+const domain           = require('../../domain');
+const link             = require('../../utilities/link');
 
 function species(router) {
 
@@ -19,8 +20,8 @@ function species(router) {
     const species = domain.species.find(ctx.params.id);
     if (!species) ctx.status = 404;
     else {
-      ctx.body = species
-        .people
+      ctx.body = 
+        new PersonRepository(species.people)
         .summarize(x => ({ url: link(router, ctx, 'person', x.id) }));
     }
   });

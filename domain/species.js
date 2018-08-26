@@ -1,5 +1,4 @@
-const PersonRepository = require('./personRepository');
-const map              = require('../utilities/map');
+const map = require('../utilities/map');
 
 const _people = Symbol('people');
 
@@ -10,7 +9,6 @@ class Species {
     this.name             = null;
     this.classification   = null;
     this.designation      = null;
-    this.created          = null;
     this.eye_colors       = null;
     this.skin_colors      = null;
     this.language         = null;
@@ -21,7 +19,7 @@ class Species {
 
     map(values, this);
 
-    this[_people] = new PersonRepository(values.people);
+    this[_people] = values.people;
   }
 
   get people() {
@@ -39,7 +37,7 @@ class Species {
   }
 
   link({ people }) {
-    this[_people] = this[_people].map(id => {
+    this[_people] = this.people.map(id => {
       const person = people.find(id);
       if (person) person.species = this;
       return person || id;

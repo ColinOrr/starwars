@@ -13,6 +13,10 @@ class Repository extends Array {
   summarize(extras = () => {}) {
     return this.map(x => x.summarize(extras(x)));
   }
+
+  link(domain) {
+    this.forEach(x => x.link(domain));
+  }
 }
 
 module.exports = Repository;
