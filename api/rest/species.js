@@ -8,7 +8,10 @@ function species(router) {
     ctx.body = domain
       .species
       .query(ctx.query)
-      .summarize(x => ({ url: link(router, ctx, 'species', x.id) }));
+      .summarize(x => ({
+        details_url : link(router, ctx, 'species', x.id),
+        people_url  : link(router, ctx, 'species-people', x.id),
+      }));
   });
 
   router.get('species', '/species/:id', ctx => {
@@ -20,7 +23,7 @@ function species(router) {
     const species = domain.species.find(ctx.params.id);
     if (!species) ctx.status = 404;
     else {
-      ctx.body = 
+      ctx.body =
         new PersonRepository(species.people)
         .summarize(x => ({ url: link(router, ctx, 'person', x.id) }));
     }

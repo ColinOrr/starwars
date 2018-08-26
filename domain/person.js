@@ -3,6 +3,7 @@ const map = require('../utilities/map');
 const _species   = Symbol('species');
 const _homeworld = Symbol('homeworld');
 const _starships = Symbol('starships');
+const _vehicles  = Symbol('vehicles');
 
 class Person {
   constructor(values) {
@@ -23,6 +24,7 @@ class Person {
     this[_species]   = null;
     this[_homeworld] = values.homeworld;
     this[_starships] = [];
+    this[_vehicles]  = [];
   }
 
   get species() {
@@ -43,6 +45,10 @@ class Person {
 
   get starships() {
     return this[_starships];
+  }
+
+  get vehicles() {
+    return this[_vehicles];
   }
 
   summarize(extras) {

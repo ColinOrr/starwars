@@ -8,7 +8,10 @@ function planets(router) {
     ctx.body = domain
       .planets
       .query(ctx.query)
-      .summarize(x => ({ url: link(router, ctx, 'planet', x.id) }));
+      .summarize(x => ({
+        details_url : link(router, ctx, 'planet', x.id),
+        people_url  : link(router, ctx, 'planet-people', x.id),
+      }));
   });
 
   router.get('planet', '/planets/:id', ctx => {
