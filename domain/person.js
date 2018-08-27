@@ -16,7 +16,6 @@ class Person {
     this.height     = null;
     this.eye_color  = null;
     this.mass       = null;
-    this.homeworld  = null;
     this.birth_year = null;
 
     map(values, this);

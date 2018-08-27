@@ -9,6 +9,8 @@
   "author": "Colin Orr",
   "license": "MIT",
   "dependencies": {
+    "apollo-server-koa": "^2.0.4",
+    "graphql": "^0.13.2",
     "koa": "^2.5.2",
     "koa-json": "^2.0.2",
     "koa-router": "^7.4.0",
