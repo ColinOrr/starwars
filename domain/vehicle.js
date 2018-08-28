@@ -5,13 +5,15 @@ const _pilots = Symbol('pilots');
 
 class Vehicle extends Transport {
   constructor(values) {
+    const PersonRepository = require('./personRepository');
+
     super(values);
 
     this.vehicle_class = null;
 
     map(values, this);
 
-    this[_pilots] = values.pilots;
+    this[_pilots] = new PersonRepository(values.pilots);
   }
 
   get pilots() {

@@ -1,6 +1,4 @@
 const domain = require('../../domain');
-const StarshipRepository = require('../../domain/starshipRepository');
-const VehicleRepository  = require('../../domain/vehicleRepository');
 
 const typeDef = `
   type Person {
@@ -13,11 +11,11 @@ const typeDef = `
     eye_color  : String
     mass       : String
     birth_year : String
+    species    : Species
+    homeworld  : Planet
 
-    species   : Species
-    homeworld : Planet
-    starships : [Starship]
-    vehicles  : [Vehicle]
+    starships(name: String) : [Starship]
+    vehicles(name: String)  : [Vehicle]
   }
 
   type Query {
@@ -27,8 +25,8 @@ const typeDef = `
 
 const resolvers = {
   Person: {
-    starships: (person, args) => new StarshipRepository(person.starships).query(args),
-    vehicles : (person, args) => new VehicleRepository(person.vehicles).query(args),
+    starships: (person, args) => person.starships.query(args),
+    vehicles : (person, args) => person.vehicles.query(args),
   },
   Query: {
     people: (parent, args) => domain.people.query(args),

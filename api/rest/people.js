@@ -1,7 +1,5 @@
-const StarshipRepository = require('../../domain/starshipRepository');
-const VehicleRepository  = require('../../domain/vehicleRepository');
-const domain             = require('../../domain');
-const link               = require('../../utilities/link');
+const domain = require('../../domain');
+const link   = require('../../utilities/link');
 
 function people(router) {
 
@@ -39,8 +37,8 @@ function people(router) {
     const person = domain.people.find(ctx.params.id);
     if (!person) ctx.status = 404;
     else {
-      ctx.body =
-        new StarshipRepository(person.starships)
+      ctx.body = person
+        .starships
         .summarize(x => ({ url: link(router, ctx, 'starship', x.id) }));
     }
   });
@@ -49,8 +47,8 @@ function people(router) {
     const person = domain.people.find(ctx.params.id);
     if (!person) ctx.status = 404;
     else {
-      ctx.body =
-        new VehicleRepository(person.vehicles)
+      ctx.body = person
+        .vehicles
         .summarize(x => ({ url: link(router, ctx, 'vehicle', x.id) }));
     }
   });

@@ -7,7 +7,9 @@ const _vehicles  = Symbol('vehicles');
 
 class Person {
   constructor(values) {
-
+    const StarshipRepository = require('./starshipRepository');
+    const VehicleRepository  = require('./vehicleRepository');
+    
     this.id         = null;
     this.name       = null;
     this.gender     = null;
@@ -22,8 +24,8 @@ class Person {
 
     this[_species]   = null;
     this[_homeworld] = values.homeworld;
-    this[_starships] = [];
-    this[_vehicles]  = [];
+    this[_starships] = new StarshipRepository();
+    this[_vehicles]  = new VehicleRepository();
   }
 
   get species() {

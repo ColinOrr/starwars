@@ -1,5 +1,4 @@
 const domain = require('../../domain');
-const PersonRepository = require('../../domain/personRepository');
 
 const typeDef = `
   type Starship {
@@ -28,7 +27,7 @@ const typeDef = `
 
 const resolvers = {
   Starship: {
-    pilots: (starship, args) => new PersonRepository(starship.pilots).query(args),
+    pilots: (starship, args) => starship.pilots.query(args),
   },
   Query: {
     starships: (parent, args) => domain.starships.query(args),

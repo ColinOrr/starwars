@@ -5,6 +5,8 @@ const _pilots = Symbol('pilots');
 
 class Starship extends Transport {
   constructor(values) {
+    const PersonRepository = require('./personRepository');
+
     super(values);
 
     this.MGLT              = null;
@@ -13,7 +15,7 @@ class Starship extends Transport {
 
     map(values, this);
 
-    this[_pilots] = values.pilots;
+    this[_pilots] = new PersonRepository(values.pilots);
   }
 
   get pilots() {

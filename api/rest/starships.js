@@ -1,6 +1,5 @@
-const PersonRepository = require('../../domain/personRepository');
-const domain           = require('../../domain');
-const link             = require('../../utilities/link');
+const domain = require('../../domain');
+const link   = require('../../utilities/link');
 
 function starships(router) {
 
@@ -23,8 +22,8 @@ function starships(router) {
     const starship = domain.starships.find(ctx.params.id);
     if (!starship) ctx.status = 404;
     else {
-      ctx.body =
-        new PersonRepository(starship.pilots)
+      ctx.body = starship
+        .pilots
         .summarize(x => ({ url: link(router, ctx, 'person', x.id) }));
     }
   });

@@ -1,5 +1,4 @@
 const domain = require('../../domain');
-const PersonRepository = require('../../domain/personRepository');
 
 const typeDef = `
   type Planet {
@@ -24,7 +23,7 @@ const typeDef = `
 
 const resolvers = {
   Planet: {
-    people: (planet, args) => new PersonRepository(planet.people).query(args),
+    people: (planet, args) => planet.people.query(args),
   },
   Query: {
     planets: (parent, args) => domain.planets.query(args),

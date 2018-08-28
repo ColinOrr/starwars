@@ -4,6 +4,7 @@ const _people = Symbol('people');
 
 class Species {
   constructor(values) {
+    const PersonRepository = require('./personRepository');
 
     this.id               = null;
     this.name             = null;
@@ -19,7 +20,7 @@ class Species {
 
     map(values, this);
 
-    this[_people] = values.people;
+    this[_people] = new PersonRepository(values.people);
   }
 
   get people() {
