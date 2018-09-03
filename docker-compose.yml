@@ -8,3 +8,9 @@ services:
       - .:/code
     ports:
       - 3000:3000
+  jupyter:
+    build: ./jupyter.dockerfile
+    volumes:
+      - ./docs:/home/jovyan/docs
+    ports:
+      - 8888:8888

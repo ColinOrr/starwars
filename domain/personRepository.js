@@ -8,12 +8,18 @@ const url = 'https://cdn.rawgit.com/phalt/swapi/d9579f2f/resources/fixtures/peop
 class PersonRepository extends Repository {
   query(filters) {
     return this
-      .withName(filters.name);
+      .withName(filters.name)
+      .withBirthYear(filters.birth_year);
   }
 
   withName(name) {
     if (!name) return this;
     return this.filter(x => wildcard(x.name, name));
+  }
+
+  withBirthYear(year) {
+    if (!year) return this;
+    return this.filter(x => x.birth_year == year);
   }
 
   static async load() {
