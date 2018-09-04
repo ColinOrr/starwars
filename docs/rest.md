@@ -6,6 +6,7 @@
     - [Status codes](#status-codes)
 - Resources
     - [People](#people)
+    - [Planets](#planets)
 
 
 ## Introduction
@@ -53,7 +54,7 @@ An individual person or character within the Star Wars universe.  The API allows
 
 Retrieves a list of people recorded in the system:
 
-```bash
+```
 http://server/people
     ?name={name}               # filters by the person's name using * as a wildcard
     &birth_year={birth_year}   # filters by the person's birth year
@@ -176,7 +177,7 @@ curl "http://$server/people/66/species"
 
 ### Retrieve a person's homeworld
 
-Retrieves the details of a person's homeworld.  The URL for the person can be found in the `homeworld_url` attribute from the list above.
+Retrieves the details of a person's homeworld.  The URL can be found in the `homeworld_url` attribute from the list above.
 
 
 ```bash
@@ -198,7 +199,7 @@ curl "http://$server/people/1/homeworld"
 
 ### Retrieve a person's starships
 
-Retrieves a list of starships that the person has piloted.  The URL for the person can be found in the `starships_url` attribute from the list above.
+Retrieves a list of starships that the person has piloted.  The URL can be found in the `starships_url` attribute from the list above.
 
 
 ```bash
@@ -222,7 +223,7 @@ curl "http://$server/people/1/starships"
 
 ### Retrieve a person's vehicles
 
-Retrieves a list of vehicles that the person has piloted. The URL for the person can be found in the `vehicles_url` attribute from the list above.
+Retrieves a list of vehicles that the person has piloted. The URL can be found in the `vehicles_url` attribute from the list above.
 
 
 ```bash
@@ -241,5 +242,90 @@ curl "http://$server/people/1/vehicles"
         "model": "74-Z speeder bike",
         "manufacturer": "Aratech Repulsor Company",
         "url": "http://web:3000/vehicles/30"
+      }
+    ]
+
+## Planets
+
+A large mass, planet or planetoid in the Star Wars Universe, at the time of 0 ABY. The API allows you to retrieve an individual planet via its unique ID, or list all of the planets recorded in the system.
+
+[List planets](#list-planets) · [Retrieve a planet](#retrieve-a-planet) · [Retrieve a planet's people](#retrieve-a-planets-people)
+
+### List planets
+
+Retrieves a list of planets recorded in the system:
+
+```
+http://server/planets
+    ?name={name}   # filters by the planet's name using * as a wildcard
+```
+
+List all planets whose name starts with "Cor":
+
+
+```bash
+curl "http://$server/planets?name=Cor*"
+```
+
+    [
+      {
+        "name": "Coruscant",
+        "terrain": "cityscape, mountains",
+        "climate": "temperate",
+        "details_url": "http://web:3000/planets/9",
+        "people_url": "http://web:3000/planets/9/people"
+      },
+      {
+        "name": "Corellia",
+        "terrain": "plains, urban, hills, forests",
+        "climate": "temperate",
+        "details_url": "http://web:3000/planets/22",
+        "people_url": "http://web:3000/planets/22/people"
+      }
+    ]
+
+### Retrieve a planet
+
+Retrieves a detailed view of an individual planet. The URL for the planet can be found in the `details_url` attribute from the list above.
+
+
+```bash
+curl "http://$server/planets/9"
+```
+
+    {
+      "id": 9,
+      "name": "Coruscant",
+      "terrain": "cityscape, mountains",
+      "climate": "temperate",
+      "surface_water": "unknown",
+      "diameter": "12240",
+      "rotation_period": "24",
+      "gravity": "1 standard",
+      "orbital_period": "368",
+      "population": "1000000000000"
+    }
+
+### Retrieve a planet's people
+
+Retrieves a list of people that come from a planet. The URL can be found in the `people_url` attribute from the list above.
+
+
+```bash
+curl "http://$server/planets/22/people"
+```
+
+    [
+      {
+        "name": "Han Solo",
+        "gender": "male",
+        "birth_year": "29BBY",
+        "url": "http://web:3000/people/14"
+      },
+      {
+        "name": "Wedge Antilles",
+        "gender": "male",
+        "birth_year": "21BBY",
+        "url": "http://web:3000/people/18"
       }
     ]
