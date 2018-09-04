@@ -7,6 +7,7 @@
 - Resources
     - [People](#people)
     - [Planets](#planets)
+    - [Species](#species)
 
 
 ## Introduction
@@ -327,5 +328,91 @@ curl "http://$server/planets/22/people"
         "gender": "male",
         "birth_year": "21BBY",
         "url": "http://web:3000/people/18"
+      }
+    ]
+
+## Species
+
+A type of person or character within the Star Wars Universe. The API allows you to retrieve an individual species via its unique ID, or list all species recorded in the system.
+
+[List species](#list-species) · [Retrieve a species](#retrieve-a-species) · [Retrieve a species' people](#retrieve-a-species-people)
+
+### List species
+
+Retrieves a list of species recorded in the system:
+
+```
+http://server/species
+    ?name={name}   # filters by the species name using * as a wildcard
+```
+
+List all species whose name contains "wo":
+
+
+```bash
+curl "http://$server/species?name=*wo*"
+```
+
+    [
+      {
+        "name": "Wookie",
+        "classification": "mammal",
+        "designation": "sentient",
+        "details_url": "http://web:3000/species/3",
+        "people_url": "http://web:3000/species/3/people"
+      },
+      {
+        "name": "Ewok",
+        "classification": "mammal",
+        "designation": "sentient",
+        "details_url": "http://web:3000/species/9",
+        "people_url": "http://web:3000/species/9/people"
+      }
+    ]
+
+### Retrieve a species
+
+Retrieves a detailed view of an individual species. The URL for the species can be found in the `details_url` attribute from the list above.
+
+
+```bash
+curl "http://$server/species/3"
+```
+
+    {
+      "id": 3,
+      "name": "Wookie",
+      "classification": "mammal",
+      "designation": "sentient",
+      "eye_colors": "blue, green, yellow, brown, golden, red",
+      "skin_colors": "gray",
+      "language": "Shyriiwook",
+      "hair_colors": "black, brown",
+      "homeworld": 14,
+      "average_lifespan": "400",
+      "average_height": "210"
+    }
+
+### Retrieve a species' people
+
+Retrieves a list of people belonging to the species. The URL can be found in the `people_url` attribute from the list above.
+
+
+```bash
+curl "http://$server/species/3/people"
+```
+
+    [
+      {
+        "name": "Chewbacca",
+        "gender": "male",
+        "birth_year": "200BBY",
+        "url": "http://web:3000/people/13"
+      },
+      {
+        "name": "Tarfful",
+        "gender": "male",
+        "birth_year": "unknown",
+        "url": "http://web:3000/people/80"
       }
     ]
