@@ -8,6 +8,8 @@
     - [People](#people)
     - [Planets](#planets)
     - [Species](#species)
+    - [Starships](#starships)
+    - [Vehicles](#vehicles)
 
 
 ## Introduction
@@ -16,7 +18,7 @@ The StarWars API is organised around [REST](https://en.wikipedia.org/wiki/Repres
 
 All data is sent and received in [JSON](http://www.json.org/) format. When you make a request that returns a list of resources, then the response includes a "summary" representation of each resource (i.e. a subset of the attributes for that resource). The summary will contain a link to the "detailed" representation which typically includes all of the attributes. 
 
-The examples in this guide use the endpoint of the demo environment:
+The examples in this guide use the following endpoint:
 
 
 ```bash
@@ -414,5 +416,221 @@ curl "http://$server/species/3/people"
         "gender": "male",
         "birth_year": "unknown",
         "url": "http://web:3000/people/80"
+      }
+    ]
+
+## Starships
+
+A single transport craft that has hyperdrive capability. The API allows you to retrieve an individual starship via its unique ID, or list all of the starships recorded in the system.
+
+[List starships](#list-starships) · [Retrieve a starship](#retrieve-a-starship) · [Retrieve a starship's pilots](#retrieve-a-starships-pilots)
+
+### List starships
+
+Retrieves a list of starships recorded in the system:
+
+```
+http://server/starships
+    ?name={name}   # filters by the starship's name using * as a wildcard
+```
+
+List all starships whose name ends with "wing":
+
+
+```bash
+curl "http://$server/starships?name=*wing"
+```
+
+    [
+      {
+        "name": "Y-wing",
+        "model": "BTL Y-wing",
+        "manufacturer": "Koensayr Manufacturing",
+        "details_url": "http://web:3000/starships/11",
+        "pilots_url": "http://web:3000/starships/11/pilots"
+      },
+      {
+        "name": "X-wing",
+        "model": "T-65 X-wing",
+        "manufacturer": "Incom Corporation",
+        "details_url": "http://web:3000/starships/12",
+        "pilots_url": "http://web:3000/starships/12/pilots"
+      },
+      {
+        "name": "A-wing",
+        "model": "RZ-1 A-wing Interceptor",
+        "manufacturer": "Alliance Underground Engineering, Incom Corporation",
+        "details_url": "http://web:3000/starships/28",
+        "pilots_url": "http://web:3000/starships/28/pilots"
+      },
+      {
+        "name": "B-wing",
+        "model": "A/SF-01 B-wing starfighter",
+        "manufacturer": "Slayn & Korpil",
+        "details_url": "http://web:3000/starships/29",
+        "pilots_url": "http://web:3000/starships/29/pilots"
+      },
+      {
+        "name": "V-wing",
+        "model": "Alpha-3 Nimbus-class V-wing starfighter",
+        "manufacturer": "Kuat Systems Engineering",
+        "details_url": "http://web:3000/starships/75",
+        "pilots_url": "http://web:3000/starships/75/pilots"
+      }
+    ]
+
+### Retrieve a starship
+
+Retrieves a detailed view of an individual starship. The URL for the vehicle can be found in the `details_url` attribute from the list above.
+
+
+```bash
+curl "http://$server/starships/12"
+```
+
+    {
+      "id": 12,
+      "name": "X-wing",
+      "model": "T-65 X-wing",
+      "manufacturer": "Incom Corporation",
+      "consumables": "1 week",
+      "cargo_capacity": "110",
+      "passengers": "0",
+      "max_atmosphering_speed": "1050",
+      "crew": "1",
+      "length": "12.5",
+      "cost_in_credits": "149999",
+      "MGLT": "100",
+      "starship_class": "Starfighter",
+      "hyperdrive_rating": "1.0"
+    }
+
+### Retrieve a starship's pilots
+
+Retrieves a list of people who have piloted the starship. The URL can be found in the `pilots_url` attribute from the list above.
+
+
+```bash
+curl "http://$server/starships/12/pilots"
+```
+
+    [
+      {
+        "name": "Luke Skywalker",
+        "gender": "male",
+        "birth_year": "19BBY",
+        "url": "http://web:3000/people/1"
+      },
+      {
+        "name": "Biggs Darklighter",
+        "gender": "male",
+        "birth_year": "24BBY",
+        "url": "http://web:3000/people/9"
+      },
+      {
+        "name": "Wedge Antilles",
+        "gender": "male",
+        "birth_year": "21BBY",
+        "url": "http://web:3000/people/18"
+      },
+      {
+        "name": "Jek Tono Porkins",
+        "gender": "male",
+        "birth_year": "unknown",
+        "url": "http://web:3000/people/19"
+      }
+    ]
+
+## Vehicles
+
+A single transport craft that does not have hyperdrive capability. The API allows you to retrieve an individual vehicle via its unique ID, or list all of the vehicles recorded in the system.
+
+[List vehicles](#list-vehicles) · [Retrieve a vehicle](#retrieve-a-vehicle) · [Retrieve a vehicle's pilots](#retrieve-a-vehicles-pilots)
+
+### List vehicles
+
+Retrieves a list of vehicles recorded in the system:
+
+```
+http://server/vehicles
+    ?name={name}   # filters by the vehicle's name using * as a wildcard
+```
+
+List all vehicles whose name ends with "bike":
+
+
+```bash
+curl "http://$server/vehicles?name=*bike"
+```
+
+    [
+      {
+        "name": "Imperial Speeder Bike",
+        "model": "74-Z speeder bike",
+        "manufacturer": "Aratech Repulsor Company",
+        "details_url": "http://web:3000/vehicles/30",
+        "pilots_url": "http://web:3000/vehicles/30/pilots"
+      },
+      {
+        "name": "Zephyr-G swoop bike",
+        "model": "Zephyr-G swoop bike",
+        "manufacturer": "Mobquet Swoops and Speeders",
+        "details_url": "http://web:3000/vehicles/44",
+        "pilots_url": "http://web:3000/vehicles/44/pilots"
+      },
+      {
+        "name": "Tsmeu-6 personal wheel bike",
+        "model": "Tsmeu-6 personal wheel bike",
+        "manufacturer": "Z-Gomot Ternbuell Guppat Corporation",
+        "details_url": "http://web:3000/vehicles/60",
+        "pilots_url": "http://web:3000/vehicles/60/pilots"
+      }
+    ]
+
+### Retrieve a vehicle
+
+Retrieves a detailed view of an individual vehicle. The URL for the vehicle can be found in the `details_url` attribute from the list above.
+
+
+```bash
+curl "http://$server/vehicles/30"
+```
+
+    {
+      "id": 30,
+      "name": "Imperial Speeder Bike",
+      "model": "74-Z speeder bike",
+      "manufacturer": "Aratech Repulsor Company",
+      "consumables": "1 day",
+      "cargo_capacity": "4",
+      "passengers": "1",
+      "max_atmosphering_speed": "360",
+      "crew": "1",
+      "length": "3",
+      "cost_in_credits": "8000",
+      "vehicle_class": "speeder"
+    }
+
+### Retrieve a vehicle's pilots
+
+Retrieves a list of people who have piloted the vehicle. The URL can be found in the `pilots_url` attribute from the list above.
+
+
+```bash
+curl "http://$server/vehicles/30/pilots"
+```
+
+    [
+      {
+        "name": "Luke Skywalker",
+        "gender": "male",
+        "birth_year": "19BBY",
+        "url": "http://web:3000/people/1"
+      },
+      {
+        "name": "Leia Organa",
+        "gender": "female",
+        "birth_year": "19BBY",
+        "url": "http://web:3000/people/5"
       }
     ]
