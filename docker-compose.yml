@@ -3,11 +3,13 @@ services:
   web:
     image: node
     working_dir: /code
-    command: npx nodemon
+    command: npx nodemon index.server.js
     volumes:
       - .:/code
     ports:
       - 3000:3000
+    env_file:
+      - .env
   jupyter:
     build: ./jupyter.dockerfile
     volumes:

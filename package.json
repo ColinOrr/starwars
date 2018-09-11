@@ -15,6 +15,10 @@
     "koa-json": "^2.0.2",
     "koa-router": "^7.4.0",
     "node-fetch": "^2.2.0",
-    "nodemon": "^1.18.3"
+    "serverless-http": "^1.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4",
+    "serverless": "^1.31.0"
   }
 }

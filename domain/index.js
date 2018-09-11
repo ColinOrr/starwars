@@ -11,9 +11,12 @@ class Domain {
     this.species   = new SpeciesRepository();
     this.starships = new StarshipRepository();
     this.vehicles  = new VehicleRepository();
+    this.loaded    = false;
   }
 
   async load() {
+    if (this.loaded) return;
+
     const data = await Promise.all([
       PersonRepository.load(),
       PlanetRepository.load(),
@@ -32,6 +35,8 @@ class Domain {
     this.species.link(this);
     this.starships.link(this);
     this.vehicles.link(this);
+
+    this.loaded = true;
   }
 }
 
