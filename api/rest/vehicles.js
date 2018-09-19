@@ -3,7 +3,7 @@ const link   = require('../../utilities/link');
 
 function vehicles(router) {
 
-  router.get('/vehicles', ctx => {
+  router.get('vehicles', '/vehicles', ctx => {
     ctx.body = domain
       .vehicles
       .query(ctx.query)

@@ -3,7 +3,7 @@ const link   = require('../../utilities/link');
 
 function species(router) {
 
-  router.get('/species', ctx => {
+  router.get('speciess', '/species', ctx => {
     ctx.body = domain
       .species
       .query(ctx.query)

@@ -3,7 +3,7 @@ const link   = require('../../utilities/link');
 
 function starships(router) {
 
-  router.get('/starships', ctx => {
+  router.get('starships', '/starships', ctx => {
     ctx.body = domain
       .starships
       .query(ctx.query)

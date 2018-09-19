@@ -3,7 +3,7 @@ const link   = require('../../utilities/link');
 
 function people(router) {
 
-  router.get('/people', ctx => {
+  router.get('people', '/people', ctx => {
     ctx.body = domain
       .people
       .query(ctx.query)

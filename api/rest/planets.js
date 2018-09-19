@@ -3,7 +3,7 @@ const link   = require('../../utilities/link');
 
 function planets(router) {
 
-  router.get('/planets', ctx => {
+  router.get('planets', '/planets', ctx => {
     ctx.body = domain
       .planets
       .query(ctx.query)
