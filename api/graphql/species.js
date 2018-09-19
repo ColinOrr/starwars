@@ -1,6 +1,7 @@
 const domain = require('../../domain');
 
 const typeDef = `
+  "A type of person or character within the Star Wars Universe."
   type Species {
     id               : String
     name             : String

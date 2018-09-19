@@ -1,6 +1,7 @@
 const domain = require('../../domain');
 
 const typeDef = `
+  "A large mass, planet or planetoid in the Star Wars Universe, at the time of 0 ABY."
   type Planet {
     id              : String
     name            : String

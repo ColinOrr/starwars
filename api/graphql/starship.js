@@ -1,6 +1,7 @@
 const domain = require('../../domain');
 
 const typeDef = `
+  "A single transport craft that has hyperdrive capability."
   type Starship {
     id                     : String
     name                   : String
