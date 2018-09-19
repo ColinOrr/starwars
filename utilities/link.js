@@ -1,5 +1,7 @@
 function link(router, ctx, ...args) {
-  return `http://${ctx.request.host}` + router.url(...args);
+  let appRoot = process.env.APP_ROOT || '';
+  if (appRoot.length && !appRoot.startsWith('/')) appRoot = '/' + appRoot;
+  return `http://${ctx.request.host}${appRoot}` + router.url(...args);
 }
 
 module.exports = link;

@@ -12,3 +12,5 @@ functions:
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
+    environment:
+      APP_ROOT: ${self:provider.stage}
